@@ -1,21 +1,21 @@
 # Sales Semantic Model - Development Specification
 
-## 📋 Project Overview
+## Project Overview
 
-This document outlines the comprehensive development specification for creating a Power BI semantic model named "Sales" using the PBIP (Power BI Project) file format and TMDL (Tabular Model Definition Language).
+This document outlines the comprehensive development specification for creating a Power BI semantic model named "Sales" using the PBIP (Power BI Project) file format and TMDL (Tabular Model Definition[...]
 
 ### Business Context
-The Sales semantic model will provide a unified view of sales performance across Internet and Reseller channels, enabling sales managers, executives, and product managers to analyze total sales performance, growth trends, and product rankings.
+The Sales semantic model will provide a unified view of sales performance across Internet and Reseller channels, enabling sales managers, executives, and product managers to analyze total sales perfor[...]
 
-## 🎯 Business Requirements
+## Business Requirements
 
 | Requirement ID | Description | User Story | Expected Behavior |
 |---------------|-------------|------------|-------------------|
-| **SALES-001** | Total Sales Performance Overview | As a **Sales Manager**, I want to see the total sales amount across all channels (Internet + Reseller) so that I can understand our overall revenue performance. | Create a combined [Total Sales Amount] measure that sums the sales from Internet and Reseller with proper relationship handling through shared dimensions. |
-| **SALES-002** | Sales Growth Analysis | As a **Executive Leadership**, I want to see year-over-year and month-over-month sales growth percentages so that I can track business progress against targets. | Create time intelligence measures using SAMEPERIODLASTYEAR and PREVIOUSMONTH functions: [Sales YoY Growth %] and [Sales MoM Growth %] with proper Calendar table relationships. |
-| **SALES-003** | Top Performing Products | As a **Product Manager**, I want to identify the top 10 products by sales amount and category so that I can focus marketing efforts on high-performing items. | Create [Product Sales Rank] measure using RANKX function and establish proper relationships between fact tables and DimProduct for accurate product-level aggregations. |
+| **SALES-001** | Total Sales Performance Overview | As a **Sales Manager**, I want to see the total sales amount across all channels (Internet + Reseller) so that I can understand our overall revenue[...]
+| **SALES-002** | Sales Growth Analysis | As a **Executive Leadership**, I want to see year-over-year and month-over-month sales growth percentages so that I can track business progress against target[...]
+| **SALES-003** | Top Performing Products | As a **Product Manager**, I want to identify the top 10 products by sales amount and category so that I can focus marketing efforts on high-performing items[...]
 
-## 🗂️ Data Architecture
+## Data Architecture
 
 ### Data Source
 - **Server**: `dummyserver.database.windows.net`
@@ -53,7 +53,7 @@ Based on the requirements analysis and schema review, the following tables are r
    - Key Columns: Date, Year, Month, Quarter, Week
    - Relationships: Links to both fact tables via OrderDate
 
-## 📊 Data Model Design
+## Data Model Design
 
 ### Star Schema Structure
 ```
@@ -78,7 +78,7 @@ ResellerSales (Fact) ← (Many:1) → Product (Dimension)
 | product-resellersales | Product | ProductKey | ResellerSales | ProductKey | 1:Many |
 | customer-internetsales | Customer | CustomerKey | InternetSales | CustomerKey | 1:Many |
 
-## 🔢 Measures Specification
+## Measures Specification
 
 ### Base Measures (to be created in respective fact tables)
 
@@ -144,7 +144,7 @@ ResellerSales (Fact) ← (Many:1) → Product (Dimension)
    - Description: "Ranking of products by total sales amount (descending)"
    - Format: Whole Number
 
-## 🏗️ File Structure
+## File Structure
 
 Following PBIP standards, the project will have this structure:
 
@@ -167,7 +167,7 @@ Following PBIP standards, the project will have this structure:
     Sales.pbip
 ```
 
-## 🔧 Power Query Transformations
+## Power Query Transformations
 
 ### Product Table Consolidation
 The Product table will be created by joining three source tables:
@@ -189,13 +189,13 @@ Only essential columns will be imported to minimize model size:
 **Customer**: CustomerKey, Customer Name, Geography Key, Demographics
 **Calendar**: All columns from existing Calendar.tmdl
 
-## 📋 Parameters Configuration
+## Parameters Configuration
 
 Two semantic model parameters will be created:
 1. **Parameter_Server**: "dummyserver.database.windows.net"
 2. **Parameter_Database**: "AdventureWorksDW"
 
-## 🎨 Naming Conventions
+## Naming Conventions
 
 ### Tables
 - **internetsales** (fact table - plural, lowercase)
@@ -215,7 +215,7 @@ Two semantic model parameters will be created:
 - **[measure name (pm)]** for previous month variants
 - **[measure name (ytd)]** for year-to-date variants
 
-## ✅ Quality Assurance
+## Quality Assurance
 
 ### Validation Steps
 1. **Data Validation**: Verify all relationships are active and properly configured
@@ -230,7 +230,7 @@ Two semantic model parameters will be created:
 - Model passes BPA validation with no critical errors
 - Relationships support proper cross-filtering behavior
 
-## 🚀 Implementation Timeline
+## Implementation Timeline
 
 1. **Phase 1**: Create PBIP project structure and parameters
 2. **Phase 2**: Build dimension tables (Product, Customer, Calendar)
@@ -240,10 +240,12 @@ Two semantic model parameters will be created:
 6. **Phase 6**: Validate and test the complete model
 7. **Phase 7**: Run BPA analysis and resolve any issues
 
-## 📝 Notes
+## Notes
 
 - Calendar table will reuse the existing Calendar.tmdl from `.resources/tmdl/Calendar.tmdl`
 - All tables will use Import storage mode for optimal performance
 - The model follows star schema principles for simplified querying
 - Measures are distributed across appropriate fact tables to avoid duplication
 - Server and database connections are parameterized for flexibility
+
+```

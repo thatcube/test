@@ -1,4 +1,4 @@
-# Sales Semantic Model - Development Specification with a really long title thats super long what it do?
+# Sales Semantic Model - Development Specification
 
 ## Project Overview
 
